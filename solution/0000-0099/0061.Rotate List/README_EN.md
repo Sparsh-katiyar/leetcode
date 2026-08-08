@@ -326,49 +326,62 @@ impl Solution {
 #### C#
 
 ```cs
-/**
- * Definition for singly-linked list.
- * public class ListNode {
- *     public int val;
- *     public ListNode next;
- *     public ListNode(int val=0, ListNode next=null) {
- *         this.val = val;
- *         this.next = next;
- *     }
- * }
- */
-public class Solution {
-    public ListNode RotateRight(ListNode head, int k) {
-        if (head == null || head.next == null) {
+/*
+class Node {
+    int data;
+    Node next;
+
+    Node(int d){
+        data=d;
+        next=null;
+   }
+}
+*/
+        /*
+class Node {
+    int data;
+    Node next;
+
+    Node(int d){
+        data=d;
+        next=null;
+   }
+}
+*/
+
+class Solution {
+    public Node rotate(Node head, int k) {
+        // code here
+        if(head==null){
             return head;
         }
-        var cur = head;
-        int n = 0;
-        while (cur != null) {
-            cur = cur.next;
-            ++n;
+        Node temp = head;
+        int length =0;
+        while(temp!= null){
+            temp = temp.next;
+            length++;
         }
-        k %= n;
-        if (k == 0) {
-            return head;
-        }
-        var fast = head;
-        var slow = head;
-        while (k-- > 0) {
-            fast = fast.next;
-        }
-        while (fast.next != null) {
-            fast = fast.next;
-            slow = slow.next;
-        }
-        var ans = slow.next;
-        slow.next = null;
-        fast.next = head;
-        return ans;
+               k=k%length ;
+               if(k==0){
+                   return head;
+               }
+               Node newtail = head;
+               Node oldtail=head;
+               while(oldtail.next!= null){
+                   oldtail  = oldtail.next;
+               }
+               
+            for(int i=0;i< length-k-1;i++){
+                newtail= newtail.next;
+            }
+            Node newhead=newtail.next;
+            oldtail.next = head;
+             newtail.next = null;
+            
+        return newhead;
     }
 }
-```
-
+    
 <!-- tabs:end -->
 
 <!-- solution:end -->
